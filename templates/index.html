@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Welcome back, {{ current_user }}!</h1>
+    <p>Choose a category and your age so we can suggest movies that fit your interests.</p>
+
+    <form method="post" class="form-card">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Enter your name" value="{{ current_user }}" required />
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <input id="gender" name="gender" type="text" placeholder="Your gender" />
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input id="age" name="age" type="number" min="0" max="120" placeholder="Enter your age" required />
+        </div>
+        <div class="form-group">
+            <label for="category">Movie category</label>
+            <select id="category" name="category">
+                {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Do you want to continue?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="continue" value="yes" checked /> Yes</label>
+                <label><input type="radio" name="continue" value="no" /> No</label>
+            </div>
+        </div>
+        <button type="submit">Show recommendations</button>
+    </form>
+
+    <section class="poster-grid">
+        <h2>Popular movie posters</h2>
+        <div class="poster-grid__items">
+            {% for title, poster in featured_posters.items() %}
+                <article class="poster-card">
+                    <img src="{{ poster }}" alt="{{ title }} poster" />
+                    <h3>{{ title }}</h3>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

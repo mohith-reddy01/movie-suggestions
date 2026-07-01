@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Thanks for visiting, {{ name }}!</h1>
+    <p>You are <strong>{{ age }}</strong> years old, <strong>{{ gender }}</strong>, and you like to watch <strong>{{ category }}</strong> movies.</p>
+
+    {% if restriction_warning %}
+        <div class="message warning">{{ restriction_warning }}</div>
+    {% endif %}
+
+    {% if continue_choice == 'yes' %}
+        <section class="movie-list">
+            <h2>{{ category_message }}</h2>
+            {% if movies %}
+                <div class="poster-grid__items result-grid">
+                    {% for movie in movies %}
+                        <article class="poster-card">
+                            <img src="{{ movie_posters[movie] }}" alt="{{ movie }} poster" />
+                            <h3>{{ movie }}</h3>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No movies matched your settings this time.</p>
+            {% endif %}
+        </section>
+    {% else %}
+        <div class="message">You chose not to continue. You can still send feedback or return to the dashboard.</div>
+    {% endif %}
+
+    <section class="feedback">
+        <h2>Share your feedback</h2>
+        <form method="post" action="{{ url_for('submit_feedback') }}">
+            <input type="hidden" name="name" value="{{ name }}" />
+            <input type="hidden" name="gender" value="{{ gender }}" />
+            <input type="hidden" name="age" value="{{ age }}" />
+            <input type="hidden" name="category" value="{{ category }}" />
+            <input type="hidden" name="continue" value="{{ continue_choice }}" />
+            <div class="form-group">
+                <textarea id="feedback" name="feedback" rows="4" placeholder="Share your thoughts..." required></textarea>
+            </div>
+            <button type="submit">Send feedback</button>
+        </form>
+    </section>
+
+    <div class="page-actions">
+        <a class="button" href="{{ url_for('index') }}">Back to dashboard</a>
+    </div>
+{% endblock %}

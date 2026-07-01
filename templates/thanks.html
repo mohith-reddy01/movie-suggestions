@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Thank you, {{ name }}!</h1>
+    <p>We appreciate your feedback and will keep improving the experience.</p>
+
+    <section class="movie-list">
+        <h2>Your summary</h2>
+        <p>You are <strong>{{ age }}</strong> years old, <strong>{{ gender }}</strong>, and you like to watch <strong>{{ category }}</strong> movies.</p>
+        {% if continue_choice == 'yes' %}
+            <p>You chose to continue and see movie options.</p>
+        {% else %}
+            <p>You chose not to continue, but your feedback still matters.</p>
+        {% endif %}
+    </section>
+
+    <section class="feedback">
+        <h2>Your feedback</h2>
+        <p>{{ feedback or 'No feedback provided.' }}</p>
+    </section>
+
+    <a class="button" href="{{ url_for('index') }}">Return to dashboard</a>
+{% endblock %}
