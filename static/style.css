@@ -27,11 +27,198 @@ body {
     box-shadow: 0 32px 80px rgba(16, 42, 67, 0.12);
 }
 
-h1,
-h2 {
+.dashboard-page {
+    background: #0b1220;
+    border-radius: 32px;
+    padding: 1.5rem;
+    color: #f8fafc;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.12);
+    color: #a5f3fc;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.dashboard-title {
+    margin: 0.6rem 0 0.35rem;
+    font-size: clamp(2rem, 3vw, 3rem);
+    color: #f8fafc;
+}
+
+.dashboard-nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.8rem;
+}
+
+.dashboard-nav a {
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 0.75rem 1.1rem;
+    border-radius: 999px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dashboard-nav a.active,
+.dashboard-nav a:hover {
+    background: rgba(56, 189, 248, 0.16);
+    color: #f8fafc;
+}
+
+.dashboard-top-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.8rem;
+}
+
+.hero-card {
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.9));
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 28px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hero-card h2 {
+    font-size: 2.1rem;
+    margin: 0.8rem 0 1rem;
+}
+
+.hero-card p {
+    color: #cbd5e1;
+    margin-bottom: 1.8rem;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.hero-actions .button {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+}
+
+.summary-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 24px;
+    padding: 1.6rem;
+}
+
+.summary-card h3 {
     margin: 0 0 1rem;
-    color: #0f3a75;
-    font-size: 2.2rem;
+    color: #f8fafc;
+}
+
+.summary-card p {
+    color: #bfcfe8;
+    margin: 0 0 1rem;
+}
+
+.summary-key {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.summary-key div {
+    background: rgba(255,255,255,0.05);
+    padding: 1rem;
+    border-radius: 18px;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.summary-key strong {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: 0.35rem;
+}
+
+.dashboard-form {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    padding: 1.5rem;
+    border-radius: 24px;
+}
+
+.dashboard-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.dashboard-form label {
+    color: #cbd5e1;
+}
+
+.dashboard-form input,
+.dashboard-form select,
+.dashboard-form textarea {
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+}
+
+.dashboard-form input::placeholder,
+.dashboard-form select::placeholder,
+.dashboard-form textarea::placeholder {
+    color: #94a3b8;
+}
+
+.dashboard-form button {
+    width: 100%;
+    margin-top: 0.3rem;
+}
+
+.poster-grid {
+    margin-top: 0.2rem;
+}
+
+.poster-grid h2 {
+    color: #f8fafc;
+    margin-bottom: 1rem;
+}
+
+.poster-card {
+    background: #0f172a;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.poster-card h3 {
+    color: #f8fafc;
+}
+
+.poster-card img {
+    filter: brightness(0.95);
+}
+
+@media (max-width: 980px) {
+    .dashboard-top-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .form-card,
