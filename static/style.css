@@ -18,13 +18,231 @@ body {
     background: radial-gradient(circle at top, #dbeafe 0%, #e8f1ff 30%, #f8fafc 100%);
 }
 
-.container {
-    max-width: 1100px;
+body[data-page="index"] {
+    background: radial-gradient(circle at top, #111827 0%, #020617 45%, #03050d 100%);
+    color: #f8fafc;
+}
+
+body[data-page="index"] header.header {
+    display: none;
+}
+
+body[data-page="index"] .container {
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 2.4rem 2rem 3.5rem;
-    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
-    border-radius: 32px;
-    box-shadow: 0 32px 80px rgba(16, 42, 67, 0.12);
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.dashboard-page {
+    padding: 2rem 1.5rem 3rem;
+}
+
+.tv-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    color: #f8fafc;
+}
+
+.tv-topbar .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #38bdf8;
+}
+
+.tv-topbar .brand::before {
+    content: "";
+    width: 3rem;
+    height: 0.2rem;
+    background: #f97316;
+    border-radius: 999px;
+    display: inline-block;
+}
+
+.tv-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.tv-nav a {
+    color: #94a3b8;
+    text-decoration: none;
+    position: relative;
+    padding: 0.35rem 0;
+}
+
+.tv-nav a.active,
+.tv-nav a:hover {
+    color: #ffffff;
+}
+
+.tv-nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.45rem;
+    height: 0.18rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f97316, #38bdf8);
+}
+
+.tv-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.18);
+}
+
+.tv-profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-tv {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.hero-tv .hero-image {
+    position: relative;
+    min-height: 360px;
+}
+
+.hero-tv .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-tv .hero-copy {
+    padding: 2rem;
+    background: linear-gradient(180deg, rgba(15,23,42,0.9), rgba(15,23,42,0.85));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.hero-tv .hero-copy span {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #60a5fa;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.hero-tv .hero-copy h2 {
+    margin: 0;
+    font-size: clamp(2.3rem, 3vw, 3.6rem);
+    color: #ffffff;
+    line-height: 1.05;
+}
+
+.hero-tv .hero-copy p {
+    margin: 0;
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+.hero-tv .hero-copy .watch-button {
+    width: fit-content;
+    padding: 0.95rem 1.6rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, #f97316, #38bdf8);
+    color: #07111f;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+}
+
+.trending-section {
+    margin-bottom: 1.5rem;
+}
+
+.trending-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.trending-header h3 {
+    margin: 0;
+    color: #f8fafc;
+    font-size: 1.25rem;
+}
+
+.trending-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+}
+
+.show-card {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.show-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 40px rgba(0,0,0,0.28);
+}
+
+.show-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.show-card strong {
+    display: block;
+    color: #f8fafc;
+    text-align: center;
+    padding: 0.85rem 0.7rem;
+    font-size: 0.95rem;
+}
+
+.footer-note {
+    margin-top: 1.5rem;
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 960px) {
+    .hero-tv {
+        grid-template-columns: 1fr;
+    }
+    .hero-tv .hero-copy {
+        padding: 1.5rem;
+    }
 }
 
 .dashboard-page {

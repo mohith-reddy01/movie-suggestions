@@ -2,93 +2,46 @@
 
 {% block content %}
 <div class="dashboard-page">
-    <header class="dashboard-header">
-        <div>
-            <span class="dashboard-label">Movie Recommendation</span>
-            <h1 class="dashboard-title">Welcome back, {{ current_user or 'Guest' }}!</h1>
+    <div class="tv-topbar">
+        <div class="brand">Movie Club</div>
+        <nav class="tv-nav">
+            <a class="active">Home</a>
+            <a>TV Shows</a>
+            <a>Movies</a>
+            <a>My List</a>
+        </nav>
+        <div class="tv-profile">
+            <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=200&q=80" alt="User" />
         </div>
-        <div class="dashboard-meta">
-            <div class="dashboard-time">12:48 PM</div>
+    </div>
+
+    <section class="hero-tv">
+        <div class="hero-image">
+            <img src="https://m.media-amazon.com/images/I/81pR5Lz+SGL._AC_SY679_.jpg" alt="Stranger Things" />
         </div>
-    </header>
-
-    <nav class="dashboard-nav">
-        <a class="active">Home</a>
-        <a>TV Shows</a>
-        <a>Movies</a>
-        <a>My List</a>
-    </nav>
-
-    <section class="dashboard-top-grid">
-        <div class="hero-card">
-            <div>
-                <span class="dashboard-label">Featured</span>
-                <h2>Find your next favorite movie</h2>
-                <p>Quickly choose a category and age to generate personalized movie recommendations in a sleek dashboard layout.</p>
-            </div>
-
-            <div class="summary-key">
-                <div>
-                    <strong>{{ categories|length }}</strong>
-                    Categories
-                </div>
-                <div>
-                    <strong>{{ featured_posters|length }}</strong>
-                    Trending posters
-                </div>
-            </div>
-
-            <div class="hero-actions">
-                <button class="button" type="button">Explore now</button>
-                <a class="button secondary" href="#popular">Popular</a>
-            </div>
-        </div>
-
-        <aside class="summary-card dashboard-form">
-            <h3>Get recommendations</h3>
-            <form method="post" class="dashboard-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input id="name" name="name" type="text" placeholder="Enter your name" value="{{ current_user }}" required />
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <input id="gender" name="gender" type="text" placeholder="Your gender" />
-                </div>
-                <div class="form-group">
-                    <label for="age">Age</label>
-                    <input id="age" name="age" type="number" min="0" max="120" placeholder="Enter your age" required />
-                </div>
-                <div class="form-group">
-                    <label for="category">Movie category</label>
-                    <select id="category" name="category">
-                        {% for category in categories %}
-                        <option value="{{ category }}">{{ category }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Do you want to continue?</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="continue" value="yes" checked /> Yes</label>
-                        <label><input type="radio" name="continue" value="no" /> No</label>
-                    </div>
-                </div>
-                <button type="submit">Show recommendations</button>
-            </form>
-        </aside>
-    </section>
-
-    <section id="popular" class="poster-grid">
-        <h2>Trending now</h2>
-        <div class="poster-grid__items">
-            {% for title, poster in featured_posters.items() %}
-                <article class="poster-card">
-                    <img src="{{ poster }}" alt="{{ title }} poster" />
-                    <h3>{{ title }}</h3>
-                </article>
-            {% endfor %}
+        <div class="hero-copy">
+            <span>Featured</span>
+            <h2>Stranger Things</h2>
+            <p>Summer brings new jobs and budding romance, but the mood shifts when Dustin’s radio picks up a Russian broadcast.</p>
+            <button class="watch-button" type="button">Watch Now</button>
         </div>
     </section>
+
+    <section class="trending-section">
+        <div class="trending-header">
+            <h3>Top TV Shows</h3>
+            <span class="dashboard-label">Trending Now</span>
+        </div>
+        <div class="trending-row">
+            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51T7a-iUrAL._AC_.jpg" alt="Game of Thrones" /><strong>Game of Thrones</strong></div>
+            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51X92gPYwLL._AC_.jpg" alt="The Simpsons" /><strong>The Simpsons</strong></div>
+            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51mFZxktT0L._AC_.jpg" alt="Friends" /><strong>Friends</strong></div>
+            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51w4ssC8z0L._AC_.jpg" alt="Vikings" /><strong>Vikings</strong></div>
+            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51mFZxktT0L._AC_.jpg" alt="That '70s Show" /><strong>That '70s Show</strong></div>
+            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51j0ZMHUOxL._AC_.jpg" alt="Rick and Morty" /><strong>Rick and Morty</strong></div>
+        </div>
+    </section>
+
+    <p class="footer-note">This page uses online poster images for visual style. For the full interactive app, open the repository and run the Flask project locally.</p>
 </div>
 {% endblock %}
