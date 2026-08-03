@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900">
+  <rect width="600" height="900" rx="40" fill="#1f2937"/>
+  <rect x="40" y="40" width="520" height="820" rx="28" fill="#374151"/>
+  <circle cx="300" cy="320" r="150" fill="#7c3aed" opacity="0.85"/>
+  <path d="M215 620c45-72 125-110 185-80" stroke="#f59e0b" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <rect x="135" y="690" width="330" height="80" rx="20" fill="#f3f4f6" opacity="0.92"/>
+  <text x="300" y="742" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">THE MATRIX</text>
+</svg>

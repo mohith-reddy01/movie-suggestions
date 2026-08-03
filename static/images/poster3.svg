@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900">
+  <rect width="600" height="900" rx="40" fill="#0f172a"/>
+  <rect x="40" y="40" width="520" height="820" rx="28" fill="#1e3a8a"/>
+  <circle cx="300" cy="320" r="140" fill="#38bdf8" opacity="0.8"/>
+  <path d="M210 580c48-84 138-130 220-88" stroke="#f97316" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <rect x="130" y="690" width="340" height="80" rx="20" fill="#f8fafc" opacity="0.92"/>
+  <text x="300" y="742" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">INTERSTELLAR</text>
+</svg>
