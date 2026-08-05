@@ -97,6 +97,21 @@ def init_db():
             )
             """
         )
+        # feedback table to store user feedback submissions
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS feedback (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_name TEXT,
+                user_gender TEXT,
+                user_age INTEGER,
+                category TEXT,
+                continue_choice TEXT,
+                feedback TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+            """
+        )
 
 
 def get_user_by_username(username):
@@ -127,8 +142,17 @@ def login_required(view):
     return wrapped_view
 
 
-if not os.path.exists(DB_PATH):
-    init_db()
+# Ensure DB tables exist (CREATE TABLE IF NOT EXISTS is idempotent)
+init_db()
+
+
+def save_feedback(user_name, user_gender, user_age, category, continue_choice, feedback_text):
+    with get_db_connection() as conn:
+        conn.execute(
+            'INSERT INTO feedback (user_name, user_gender, user_age, category, continue_choice, feedback) VALUES (?, ?, ?, ?, ?, ?)',
+            (user_name, user_gender, user_age, category, continue_choice, feedback_text),
+        )
+        conn.commit()
 
 
 @app.context_processor
@@ -264,6 +288,14 @@ def submit_feedback():
     user_category = category_input if category_input in movie_categories else 'Thriller'
     continue_choice = request.form.get('continue', 'yes')
     user_feedback = request.form.get('feedback', '').strip()
+
+    # persist feedback to the database
+    if user_feedback:
+        try:
+            save_feedback(user_name, user_gender, user_age, user_category, continue_choice, user_feedback)
+        except Exception:
+            # ignore DB errors for now but continue to thanks page
+            pass
 
     return render_template(
         'thanks.html',
