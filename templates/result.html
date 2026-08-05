@@ -15,7 +15,9 @@
                 <div class="poster-grid__items result-grid">
                     {% for movie in movies %}
                         <article class="poster-card">
-                            <img src="{{ movie_posters[movie] }}" alt="{{ movie }} poster" />
+                            <a href="{{ url_for('movie_detail', slug=movie|lower|replace('&','and')|replace(' ', '-')|replace(':', '')|replace("'", '')) }}">
+                                <img src="{{ movie_posters[movie] }}" alt="{{ movie }} poster" />
+                            </a>
                             <h3>{{ movie }}</h3>
                         </article>
                     {% endfor %}

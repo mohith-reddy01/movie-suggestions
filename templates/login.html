@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Login to Movie Club</h1>
-    <p>Enter your username and password to continue.</p>
-    <form method="post" class="form-card">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text" placeholder="Username" required />
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password" placeholder="Password" required />
-        </div>
-        <button type="submit">Login</button>
-    </form>
-    <p>Not registered yet? <a href="{{ url_for('register') }}">Create an account</a>.</p>
+<div class="dashboard-page">
+    <section class="dashboard-form" style="max-width:540px;margin:0 auto;">
+        <h1>Login to Movie Club</h1>
+        <p>Enter your username and password to continue.</p>
+        <form method="post" class="form-card">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" placeholder="Username" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" placeholder="Password" required />
+            </div>
+            <button type="submit" class="password-enter">Login</button>
+        </form>
+    </section>
+</div>
 {% endblock %}

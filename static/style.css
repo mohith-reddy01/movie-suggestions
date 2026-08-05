@@ -508,6 +508,13 @@ button:hover,
 .button:hover {
     background: #165fb8;
 }
+/* Size for password/submit buttons in auth forms */
+.form-card button.password-enter {
+    padding: 0.9rem 1.4rem;
+    font-size: 1.08rem;
+    border-radius: 10px;
+    min-width: 140px;
+}
 .header {
     background: #ffffff;
     border-bottom: 1px solid #d9e2ec;

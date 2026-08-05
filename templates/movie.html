@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <div class="movie-detail" style="display:flex;gap:1.2rem;align-items:flex-start">
+        <div style="min-width:220px;">
+            <img src="{{ poster }}" alt="{{ title }} poster" style="width:220px;border-radius:8px;" />
+        </div>
+        <div>
+            <p><strong>IMDB:</strong> {{ details.imdb if details.imdb is defined else 'N/A' }}</p>
+            <p><strong>Category:</strong> {{ details.category if details.category is defined else 'N/A' }}</p>
+            <p><strong>Cost:</strong> {{ details.cost if details.cost is defined else 'Free' }}</p>
+            <p><strong>Available on:</strong> {{ details.ott if details.ott is defined else 'Unknown' }}</p>
+            <p>{{ details.description if details.description is defined else '' }}</p>
+            <div class="page-actions" style="margin-top:1rem;">
+                <a class="button" href="{{ url_for('index') }}">Back to dashboard</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

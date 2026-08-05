@@ -49,6 +49,35 @@ movie_posters = {
     "Coco": "https://via.placeholder.com/220x330/f06292/ffffff?text=Coco",
 }
 
+# Detailed metadata for movies
+movie_details = {
+    "Inception": {"imdb": 8.8, "cost": "$3.99", "ott": "Netflix", "category": "Thriller", "description": "A thief who steals corporate secrets through dream-sharing technology."},
+    "Gone Girl": {"imdb": 8.1, "cost": "$2.99", "ott": "Prime Video", "category": "Thriller", "description": "A man becomes the prime suspect in the disappearance of his wife."},
+    "Se7en": {"imdb": 8.6, "cost": "$2.99", "ott": "HBO Max", "category": "Thriller", "description": "Two detectives hunt a serial killer who bases his crimes on the seven deadly sins."},
+    "Superbad": {"imdb": 7.6, "cost": "$1.99", "ott": "Paramount+", "category": "Comedy", "description": "Two co-dependent high school seniors try to enjoy their remaining time together."},
+    "Step Brothers": {"imdb": 6.9, "cost": "$1.99", "ott": "Hulu", "category": "Comedy", "description": "Two immature adults are forced to live together as step brothers."},
+    "The Grand Budapest Hotel": {"imdb": 8.1, "cost": "$3.99", "ott": "Hulu", "category": "Comedy", "description": "A whimsical story of a legendary concierge and his protégé."},
+    "Mad Max: Fury Road": {"imdb": 8.1, "cost": "$3.99", "ott": "HBO Max", "category": "Action", "description": "Post-apocalyptic action on a high-speed chase across the desert."},
+    "John Wick": {"imdb": 7.4, "cost": "$2.99", "ott": "Peacock", "category": "Action", "description": "An ex-hitman comes out of retirement to track down the gangsters who wronged him."},
+    "The Dark Knight": {"imdb": 9.0, "cost": "$3.99", "ott": "Max", "category": "Action", "description": "Batman faces the Joker, a criminal mastermind who plunges Gotham into chaos."},
+    "The Notebook": {"imdb": 7.8, "cost": "$2.99", "ott": "Netflix", "category": "Romance", "description": "A touching love story told from memory."},
+    "La La Land": {"imdb": 8.0, "cost": "$2.99", "ott": "Prime Video", "category": "Romance", "description": "A jazz musician and an aspiring actress fall in love in Los Angeles."},
+    "Interstellar": {"imdb": 8.6, "cost": "$3.99", "ott": "Paramount+", "category": "Sci-Fi", "description": "A team travels through a wormhole in search of a new home for humanity."},
+}
+
+
+def slugify(title: str) -> str:
+    return (
+        title.lower().replace("&", "and").replace(" ", "-").replace(":", "").replace("'", "")
+    )
+
+
+def title_from_slug(slug: str) -> str | None:
+    for t in movie_posters.keys():
+        if slugify(t) == slug:
+            return t
+    return None
+
 
 def get_db_connection():
     connection = sqlite3.connect(DB_PATH)
@@ -245,6 +274,18 @@ def submit_feedback():
         continue_choice=continue_choice,
         feedback=user_feedback,
     )
+
+
+
+@app.route('/movie/<slug>')
+@login_required
+def movie_detail(slug):
+    title = title_from_slug(slug)
+    if title is None:
+        return redirect(url_for('index'))
+    details = movie_details.get(title, {})
+    poster = movie_posters.get(title)
+    return render_template('movie.html', title=title, details=details, poster=poster)
 
 
 if __name__ == '__main__':
