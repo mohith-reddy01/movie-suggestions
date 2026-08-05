@@ -74,6 +74,24 @@ body[data-page="login"] input[type="password"] {
     color: #eaf6ff;
 }
 
+/* Larger login submit button */
+.button--large {
+    padding: 1.1rem 1.8rem;
+    font-size: 1.05rem;
+    border-radius: 14px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+/* Make the login submit button more prominent on small screens */
+@media (max-width: 640px) {
+    body[data-page="login"] .button--large {
+        width: 100%;
+        padding: 1.2rem 1rem;
+        font-size: 1.06rem;
+    }
+}
+
 body[data-page="index"] header.header {
     display: none;
 }
