@@ -23,6 +23,57 @@ body[data-page="index"] {
     color: #f8fafc;
 }
 
+/* Login page: posters as background only */
+body[data-page="login"] {
+    background: radial-gradient(circle at 10% 10%, rgba(3,7,12,0.7), rgba(2,6,10,0.85)),
+                url('/static/images/poster2.svg') center/cover no-repeat;
+    color: #ffffff;
+}
+
+body[data-page="login"] header.header {
+    display: none;
+}
+
+/* center the login form on the poster background */
+body[data-page="login"] .container {
+    max-width: 720px;
+    margin: 6vh auto;
+    padding: 2rem;
+    background: rgba(2,6,10,0.55);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(2,6,10,0.6);
+}
+
+body[data-page="login"] h1,
+body[data-page="login"] p {
+    color: #e6eefc;
+}
+
+body[data-page="login"] .form-card {
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+body[data-page="login"] label {
+    color: #cfe8ff;
+}
+
+body[data-page="login"] input[type="text"],
+body[data-page="login"] input[type="password"] {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #e8f4ff;
+}
+
+/* small variant button */
+.button--ghost {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #eaf6ff;
+}
+
 body[data-page="index"] header.header {
     display: none;
 }

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% block body_attrs %}data-page="login"{% endblock %}
     <h1>Login to Movie Club</h1>
     <p>Enter your username and password to continue.</p>
     <form method="post" class="form-card">

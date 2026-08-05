@@ -15,33 +15,15 @@
         </div>
     </div>
 
-    <section class="hero-tv">
-        <div class="hero-image">
-            <img src="/static/images/poster1.svg" alt="Stranger Things" />
-        </div>
-        <div class="hero-copy">
-            <span>Featured</span>
-            <h2>Stranger Things</h2>
-            <p>Summer brings new jobs and budding romance, but the mood shifts when Dustin’s radio picks up a Russian broadcast.</p>
-            <button class="watch-button" type="button">Watch Now</button>
+    <section class="hero-card">
+        <h2 class="dashboard-title">Welcome to Movie Club</h2>
+        <p class="hero-lead">Browse curated lists, add favorites, and get movie suggestions tailored to you.</p>
+        <div class="hero-actions page-actions">
+            <a class="button" href="{{ url_for('login') }}">Sign in</a>
+            <a class="button button--ghost" href="{{ url_for('register') }}">Create account</a>
         </div>
     </section>
 
-    <section class="trending-section">
-        <div class="trending-header">
-            <h3>Top TV Shows</h3>
-            <span class="dashboard-label">Trending Now</span>
-        </div>
-        <div class="trending-row">
-            <div class="show-card"><img src="/static/images/poster1.svg" alt="Game of Thrones" /><strong>Game of Thrones</strong></div>
-            <div class="show-card"><img src="/static/images/poster2.svg" alt="The Simpsons" /><strong>The Simpsons</strong></div>
-            <div class="show-card"><img src="/static/images/poster3.svg" alt="Friends" /><strong>Friends</strong></div>
-            <div class="show-card"><img src="/static/images/poster1.svg" alt="Vikings" /><strong>Vikings</strong></div>
-            <div class="show-card"><img src="/static/images/poster2.svg" alt="That '70s Show" /><strong>That '70s Show</strong></div>
-            <div class="show-card"><img src="/static/images/poster3.svg" alt="Rick and Morty" /><strong>Rick and Morty</strong></div>
-        </div>
-    </section>
-
-    <p class="footer-note">This page uses online poster images for visual style. For the full interactive app, open the repository and run the Flask project locally.</p>
+    <p class="footer-note">Run the Flask app locally for the full interactive experience.</p>
 </div>
 {% endblock %}
