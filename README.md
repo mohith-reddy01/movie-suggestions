@@ -1,5 +1,7 @@
 Flask Movie Project - Email & Database Setup
 
+Live app: https://movie-suggestion2-production.up.railway.app/
+
 This project uses SQLite for user and feedback storage and can email new registrations and feedback to an admin address using SMTP.
 
 Required environment variables (set these in your OS or a .env file):
