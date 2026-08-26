@@ -5,37 +5,172 @@
     <div class="tv-topbar">
         <div class="brand">Movie Club</div>
         <nav class="tv-nav">
-            <a class="active">Home</a>
-            <a>TV Shows</a>
-            <a>Movies</a>
-            <a>My List</a>
+            <a class="active" href="{{ url_for('index') }}">Home</a>
+            <a href="#trending-movies">Trending Movies</a>
+            <a href="#trending-tv">Top TV Shows</a>
+            <a href="#recommendations">Find Movies</a>
         </nav>
         <div class="tv-profile">
-            <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=200&q=80" alt="User" />
+            <div style="width:100%;height:100%;background:linear-gradient(135deg,#f97316,#38bdf8);display:flex;align-items:center;justify-content:center;font-weight:700;color:#07111f;font-size:0.9rem;">
+                {{ (current_user or 'U')[0]|upper }}
+            </div>
         </div>
     </div>
 
+    <!-- Featured Hero Section -->
     <section class="hero-tv">
         <div class="hero-image">
-            <img src="https://m.media-amazon.com/images/I/81pR5Lz+SGL._AC_SY679_.jpg" alt="Stranger Things" />
+            <img src="{{ url_for('static', filename='images/tv/stranger-things-hero.jpg') }}" alt="Stranger Things" loading="eager" />
         </div>
         <div class="hero-copy">
-            <span>Featured</span>
+            <div style="display:flex;gap:0.5rem;align-items:center;">
+                <span class="hero-pill">Featured Series</span>
+                <span style="color:#fde047;font-weight:700;font-size:0.9rem;">⭐ 8.7 / 10</span>
+            </div>
             <h2>Stranger Things</h2>
-            <p>Summer brings new jobs and budding romance, but the mood shifts when Dustin’s radio picks up a Russian broadcast.</p>
-            <button class="watch-button" type="button">Watch Now</button>
+            <p>When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.</p>
+            <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:0.4rem;">
+                <a href="#recommendations" class="watch-button" style="text-decoration:none;">Discover Movies</a>
+                <a href="#trending-movies" class="watch-button secondary-btn" style="text-decoration:none;">Trending Now</a>
+            </div>
         </div>
     </section>
 
-    <section class="dashboard-form" style="margin-top:1.5rem;">
-        <h2>Find movies by category</h2>
+    <!-- Trending Movies Section -->
+    <section id="trending-movies" class="trending-section" style="margin-top:2.5rem;">
+        <div class="trending-header">
+            <div>
+                <h3 style="font-size:1.6rem;margin-bottom:0.2rem;">🔥 Trending Movies</h3>
+                <p style="color:#94a3b8;font-size:0.95rem;margin:0;">Popular picks right now. Click any movie to view full details and streaming info.</p>
+            </div>
+            <span class="dashboard-label">Top Rated</span>
+        </div>
+        <div class="trending-row">
+            <div class="show-card">
+                <a href="{{ url_for('movie_detail', slug='the-dark-knight') }}">
+                    <img src="{{ url_for('static', filename='images/posters/the-dark-knight.jpg') }}" alt="The Dark Knight" loading="lazy" />
+                </a>
+                <div class="show-card-info">
+                    <strong>The Dark Knight</strong>
+                    <span class="show-meta">⭐ 9.0 • Action</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <a href="{{ url_for('movie_detail', slug='inception') }}">
+                    <img src="{{ url_for('static', filename='images/posters/inception.jpg') }}" alt="Inception" loading="lazy" />
+                </a>
+                <div class="show-card-info">
+                    <strong>Inception</strong>
+                    <span class="show-meta">⭐ 8.8 • Thriller</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <a href="{{ url_for('movie_detail', slug='interstellar') }}">
+                    <img src="{{ url_for('static', filename='images/posters/interstellar.jpg') }}" alt="Interstellar" loading="lazy" />
+                </a>
+                <div class="show-card-info">
+                    <strong>Interstellar</strong>
+                    <span class="show-meta">⭐ 8.6 • Sci-Fi</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <a href="{{ url_for('movie_detail', slug='fight-club') }}">
+                    <img src="{{ url_for('static', filename='images/posters/fight-club.jpg') }}" alt="Fight Club" loading="lazy" />
+                </a>
+                <div class="show-card-info">
+                    <strong>Fight Club</strong>
+                    <span class="show-meta">⭐ 8.8 • Thriller</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <a href="{{ url_for('movie_detail', slug='the-matrix') }}">
+                    <img src="{{ url_for('static', filename='images/posters/the-matrix.jpg') }}" alt="The Matrix" loading="lazy" />
+                </a>
+                <div class="show-card-info">
+                    <strong>The Matrix</strong>
+                    <span class="show-meta">⭐ 8.7 • Action</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <a href="{{ url_for('movie_detail', slug='spider-man-into-the-spider-verse') }}">
+                    <img src="{{ url_for('static', filename='images/posters/spider-man-into-the-spider-verse.jpg') }}" alt="Spider-Man: Into the Spider-Verse" loading="lazy" />
+                </a>
+                <div class="show-card-info">
+                    <strong>Spider-Verse</strong>
+                    <span class="show-meta">⭐ 8.4 • Animation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Trending TV Shows Section -->
+    <section id="trending-tv" class="trending-section" style="margin-top:2.5rem;">
+        <div class="trending-header">
+            <div>
+                <h3 style="font-size:1.6rem;margin-bottom:0.2rem;">📺 Top TV Shows</h3>
+                <p style="color:#94a3b8;font-size:0.95rem;margin:0;">Binge-worthy shows trending around the globe.</p>
+            </div>
+            <span class="dashboard-label">Trending Series</span>
+        </div>
+        <div class="trending-row">
+            <div class="show-card">
+                <img src="{{ url_for('static', filename='images/tv/breaking-bad.jpg') }}" alt="Breaking Bad" loading="lazy" />
+                <div class="show-card-info">
+                    <strong>Breaking Bad</strong>
+                    <span class="show-meta">⭐ 9.5 • Crime</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <img src="{{ url_for('static', filename='images/tv/game-of-thrones.jpg') }}" alt="Game of Thrones" loading="lazy" />
+                <div class="show-card-info">
+                    <strong>Game of Thrones</strong>
+                    <span class="show-meta">⭐ 9.2 • Fantasy</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <img src="{{ url_for('static', filename='images/tv/stranger-things.jpg') }}" alt="Stranger Things" loading="lazy" />
+                <div class="show-card-info">
+                    <strong>Stranger Things</strong>
+                    <span class="show-meta">⭐ 8.7 • Sci-Fi</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <img src="{{ url_for('static', filename='images/tv/the-simpsons.jpg') }}" alt="The Simpsons" loading="lazy" />
+                <div class="show-card-info">
+                    <strong>The Simpsons</strong>
+                    <span class="show-meta">⭐ 8.7 • Comedy</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <img src="{{ url_for('static', filename='images/tv/friends.jpg') }}" alt="Friends" loading="lazy" />
+                <div class="show-card-info">
+                    <strong>Friends</strong>
+                    <span class="show-meta">⭐ 8.9 • Sitcom</span>
+                </div>
+            </div>
+            <div class="show-card">
+                <img src="{{ url_for('static', filename='images/tv/rick-and-morty.jpg') }}" alt="Rick and Morty" loading="lazy" />
+                <div class="show-card-info">
+                    <strong>Rick and Morty</strong>
+                    <span class="show-meta">⭐ 9.1 • Animation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Find Movies by Category / Recommendation Engine -->
+    <section id="recommendations" class="dashboard-form" style="margin-top:3rem;">
+        <div style="margin-bottom:1.5rem;">
+            <h2 style="font-size:1.8rem;color:#f8fafc;margin-bottom:0.4rem;">🎬 Get Personalized Movie Recommendations</h2>
+            <p style="color:#94a3b8;margin:0;">Select your age and favorite genre to explore age-appropriate suggestions with official posters and streaming guides.</p>
+        </div>
         <form method="post" class="form-card">
             <div class="form-group">
-                <label for="age">Your age</label>
-                <input id="age" name="age" type="number" min="0" placeholder="Enter your age" required />
+                <label for="age">Your Age</label>
+                <input id="age" name="age" type="number" min="0" max="120" placeholder="e.g. 21" required />
             </div>
             <div class="form-group">
-                <label for="category">Choose a category</label>
+                <label for="category">Choose Movie Category</label>
                 <select id="category" name="category">
                     {% for cat in categories %}
                         <option value="{{ cat }}">{{ cat }}</option>
@@ -43,31 +178,36 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Continue to results?</label>
+                <label>Continue to Results?</label>
                 <select name="continue">
-                    <option value="yes">Yes</option>
+                    <option value="yes">Yes, show posters & recommendations</option>
                     <option value="no">No</option>
                 </select>
             </div>
-            <button type="submit" class="password-enter">Show movies</button>
+            <button type="submit" class="password-enter">Explore Movie Suggestions →</button>
         </form>
     </section>
 
-    <section class="trending-section">
+    <!-- Browse Popular Genres by Poster -->
+    <section style="margin-top:3rem;">
         <div class="trending-header">
-            <h3>Top TV Shows</h3>
-            <span class="dashboard-label">Trending Now</span>
+            <div>
+                <h3 style="font-size:1.6rem;margin-bottom:0.2rem;">🍿 Quick Browse by Genre</h3>
+                <p style="color:#94a3b8;font-size:0.95rem;margin:0;">Click any genre to explore curated selections instantly.</p>
+            </div>
         </div>
-        <div class="trending-row">
-            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51T7a-iUrAL._AC_.jpg" alt="Game of Thrones" /><strong>Game of Thrones</strong></div>
-            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51X92gPYwLL._AC_.jpg" alt="The Simpsons" /><strong>The Simpsons</strong></div>
-            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51mFZxktT0L._AC_.jpg" alt="Friends" /><strong>Friends</strong></div>
-            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51w4ssC8z0L._AC_.jpg" alt="Vikings" /><strong>Vikings</strong></div>
-            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51mFZxktT0L._AC_.jpg" alt="That '70s Show" /><strong>That '70s Show</strong></div>
-            <div class="show-card"><img src="https://m.media-amazon.com/images/I/51j0ZMHUOxL._AC_.jpg" alt="Rick and Morty" /><strong>Rick and Morty</strong></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:1rem;margin-top:1rem;">
+            {% for cat in categories %}
+                <form method="post" style="margin:0;">
+                    <input type="hidden" name="age" value="21" />
+                    <input type="hidden" name="category" value="{{ cat }}" />
+                    <input type="hidden" name="continue" value="yes" />
+                    <button type="submit" style="width:100%;padding:1rem;background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.2);border-radius:16px;color:#f8fafc;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.2s ease;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.25);">
+                        {{ cat }}
+                    </button>
+                </form>
+            {% endfor %}
         </div>
     </section>
-
-    <p class="footer-note">This page uses online poster images for visual style. For the full interactive app, open the repository and run the Flask project locally.</p>
 </div>
 {% endblock %}

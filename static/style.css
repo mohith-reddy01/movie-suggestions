@@ -196,45 +196,90 @@ body[data-page="index"] .container {
     font-size: 1.25rem;
 }
 
+.hero-pill {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    color: #38bdf8;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.hero-tv .hero-copy .secondary-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    color: #f8fafc;
+}
+
+.hero-tv .hero-copy .secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
 .trending-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.2rem;
 }
 
 .show-card {
     background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(148, 163, 184, 0.14);
-    border-radius: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 20px;
     overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .show-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 22px 40px rgba(0,0,0,0.28);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    border-color: rgba(56, 189, 248, 0.35);
+}
+
+.show-card a {
+    display: block;
+    overflow: hidden;
+    background: #0b1329;
 }
 
 .show-card img {
     width: 100%;
-    height: 220px;
+    aspect-ratio: 2 / 3;
     object-fit: cover;
     display: block;
+    transition: transform 0.3s ease;
+}
+
+.show-card:hover img {
+    transform: scale(1.05);
+}
+
+.show-card-info {
+    padding: 0.75rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
 }
 
 .show-card strong {
     display: block;
     color: #f8fafc;
-    text-align: center;
-    padding: 0.85rem 0.7rem;
     font-size: 0.95rem;
+    line-height: 1.25;
 }
 
-.footer-note {
-    margin-top: 1.5rem;
+.show-meta {
+    font-size: 0.8rem;
     color: #94a3b8;
-    font-size: 0.95rem;
+    font-weight: 500;
 }
+
 
 @media (max-width: 960px) {
     .hero-tv {
