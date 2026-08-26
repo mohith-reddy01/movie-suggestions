@@ -1,51 +1,66 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Thanks for visiting, {{ name }}!</h1>
-    <p>You are <strong>{{ age }}</strong> years old, <strong>{{ gender }}</strong>, and you like to watch <strong>{{ category }}</strong> movies.</p>
+<div class="dashboard-page" style="max-width:1200px;margin:1.5rem auto;">
+    <h1 style="color:#f8fafc;font-size:2.2rem;margin-bottom:0.4rem;">Thanks for visiting, {{ name }}!</h1>
+    <p style="color:#94a3b8;font-size:1.05rem;margin-bottom:1.5rem;">
+        You are <strong style="color:#38bdf8;">{{ age }}</strong> years old, <strong style="color:#38bdf8;">{{ gender }}</strong>, and you like to watch <strong style="color:#38bdf8;">{{ category }}</strong> movies.
+    </p>
 
     {% if restriction_warning %}
-        <div class="message warning">{{ restriction_warning }}</div>
+        <div class="message warning" style="margin-bottom:1.5rem;background:rgba(234,179,8,0.15);border:1px solid rgba(234,179,8,0.3);color:#fde047;padding:1rem;border-radius:14px;">
+            ⚠️ {{ restriction_warning }}
+        </div>
     {% endif %}
 
     {% if continue_choice == 'yes' %}
         <section class="movie-list">
-            <h2>{{ category_message }}</h2>
+            <h2 style="color:#f8fafc;font-size:1.6rem;margin-bottom:1.2rem;">{{ category_message }}</h2>
             {% if movies %}
                 <div class="poster-grid__items result-grid">
                     {% for movie in movies %}
                         <article class="poster-card">
                             <a href="{{ url_for('movie_detail', slug=movie|lower|replace('&','and')|replace(' ', '-')|replace(':', '')|replace("'", '')) }}">
-                                <img src="{{ movie_posters[movie] }}" alt="{{ movie }} poster" />
+                                <img src="{{ movie_posters[movie] }}" alt="{{ movie }} poster" loading="lazy" />
                             </a>
-                            <h3>{{ movie }}</h3>
+                            <div class="poster-card__footer">
+                                <h3>{{ movie }}</h3>
+                                <a class="poster-card__link" href="{{ url_for('movie_detail', slug=movie|lower|replace('&','and')|replace(' ', '-')|replace(':', '')|replace("'", '')) }}">
+                                    View Details →
+                                </a>
+                            </div>
                         </article>
                     {% endfor %}
                 </div>
             {% else %}
-                <p>No movies matched your settings this time.</p>
+                <p style="color:#94a3b8;">No movies matched your settings this time.</p>
             {% endif %}
         </section>
     {% else %}
-        <div class="message">You chose not to continue. You can still send feedback or return to the dashboard.</div>
+        <div class="message" style="background:rgba(148,163,184,0.1);padding:1.2rem;border-radius:14px;color:#cbd5e1;">
+            You chose not to continue. You can still send feedback or return to the dashboard.
+        </div>
     {% endif %}
 
-    <section class="feedback">
-        <h2>Share your feedback</h2>
-        <form method="post" action="{{ url_for('submit_feedback') }}">
+    <section class="dashboard-form" style="margin-top:2.5rem;max-width:680px;">
+        <h2 style="color:#f8fafc;font-size:1.5rem;margin-bottom:0.8rem;">Share your feedback</h2>
+        <form method="post" action="{{ url_for('submit_feedback') }}" class="form-card">
             <input type="hidden" name="name" value="{{ name }}" />
             <input type="hidden" name="gender" value="{{ gender }}" />
             <input type="hidden" name="age" value="{{ age }}" />
             <input type="hidden" name="category" value="{{ category }}" />
             <input type="hidden" name="continue" value="{{ continue_choice }}" />
             <div class="form-group">
-                <textarea id="feedback" name="feedback" rows="4" placeholder="Share your thoughts..." required></textarea>
+                <textarea id="feedback" name="feedback" rows="4" placeholder="Share your thoughts about this movie selection..." required style="width:100%;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(148,163,184,0.2);color:#f8fafc;padding:0.9rem;font-family:inherit;font-size:1rem;"></textarea>
             </div>
-            <button type="submit">Send feedback</button>
+            <button type="submit" class="password-enter" style="cursor:pointer;">Send feedback</button>
         </form>
     </section>
 
-    <div class="page-actions">
-        <a class="button" href="{{ url_for('index') }}">Back to dashboard</a>
+    <div class="page-actions" style="margin-top:2rem;">
+        <a class="button secondary" href="{{ url_for('index') }}" style="display:inline-block;padding:0.8rem 1.4rem;border-radius:999px;border:1px solid rgba(148,163,184,0.3);color:#f8fafc;text-decoration:none;font-weight:600;">
+            ← Back to Dashboard
+        </a>
     </div>
+</div>
 {% endblock %}
