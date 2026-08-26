@@ -1,3 +1,4 @@
+"""Movie suggestions Flask application - standalone version."""
 import os
 from flask import Flask, render_template, request
 
@@ -27,6 +28,7 @@ movie_ratings = {
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    """Display movie suggestions based on user preferences."""
     if request.method == 'POST':
         user_name = request.form.get('name', 'Guest').strip() or 'Guest'
         user_gender = request.form.get('gender', 'Prefer not to say').strip() or 'Prefer not to say'
@@ -47,11 +49,15 @@ def index():
 
         if user_age < 18:
             category_message = (
-                f"Movies in {user_category} suitable for under 18:" if filtered_movies else f"No movies available in {user_category} for your age."
+                f"Movies in {user_category} suitable for under 18:"
+                if filtered_movies
+                else f"No movies available in {user_category} for your age."
             )
         else:
             category_message = (
-                f"Movies in {user_category}:" if filtered_movies else f"No movies found in category: {user_category}"
+                f"Movies in {user_category}:"
+                if filtered_movies
+                else f"No movies found in category: {user_category}"
             )
 
         return render_template(
@@ -75,6 +81,7 @@ def index():
 
 @app.route('/submit-feedback', methods=['POST'])
 def submit_feedback():
+    """Process and save user feedback submission."""
     user_name = request.form.get('name', 'Guest').strip() or 'Guest'
     user_gender = request.form.get('gender', 'Prefer not to say').strip() or 'Prefer not to say'
     user_age_str = request.form.get('age', '0').strip()

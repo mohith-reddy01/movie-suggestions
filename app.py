@@ -1,3 +1,4 @@
+"""Movie suggestions Flask application with user authentication and feedback system."""
 import os
 import sqlite3
 import smtplib
@@ -241,12 +242,14 @@ movie_details = {
 
 
 def slugify(title: str) -> str:
+    """Convert movie title to URL-friendly slug format."""
     return (
         title.lower().replace("&", "and").replace(" ", "-").replace(":", "").replace("'", "")
     )
 
 
 def title_from_slug(slug: str) -> str | None:
+    """Convert URL slug back to original movie title."""
     for t in movie_posters.keys():
         if slugify(t) == slug:
             return t
@@ -254,12 +257,14 @@ def title_from_slug(slug: str) -> str | None:
 
 
 def get_db_connection():
+    """Create and return a database connection."""
     connection = sqlite3.connect(DB_PATH)
     connection.row_factory = sqlite3.Row
     return connection
 
 
 def init_db():
+    """Initialize database tables for users and feedback."""
     with get_db_connection() as conn:
         conn.execute(
             """
@@ -289,6 +294,7 @@ def init_db():
 
 
 def get_user_by_username(username):
+    """Fetch a user from the database by username."""
     with get_db_connection() as conn:
         return conn.execute(
             'SELECT * FROM users WHERE username = ?',
@@ -297,6 +303,7 @@ def get_user_by_username(username):
 
 
 def create_user(username, display_name, password):
+    """Create a new user with hashed password in the database."""
     password_hash = generate_password_hash(password)
     with get_db_connection() as conn:
         conn.execute(
@@ -351,6 +358,7 @@ def send_email(subject: str, body: str, to_address: str | None = None) -> bool:
 
 
 def login_required(view):
+    """Decorator to require user login for protected routes."""
     @wraps(view)
     def wrapped_view(*args, **kwargs):
         if session.get('user_id') is None:
@@ -365,6 +373,7 @@ init_db()
 
 
 def save_feedback(user_name, user_gender, user_age, category, continue_choice, feedback_text):
+    """Save user feedback to the database."""
     with get_db_connection() as conn:
         conn.execute(
             'INSERT INTO feedback (user_name, user_gender, user_age, category, continue_choice, feedback) VALUES (?, ?, ?, ?, ?, ?)',
@@ -375,6 +384,7 @@ def save_feedback(user_name, user_gender, user_age, category, continue_choice, f
 
 @app.context_processor
 def inject_user():
+    """Inject current user and movie posters into all template contexts."""
     return {
         'current_user': session.get('display_name') or session.get('username'),
         'movie_posters': movie_posters,
@@ -383,6 +393,7 @@ def inject_user():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """Handle user registration with validation."""
     error = None
 
     if request.method == 'POST':
@@ -418,6 +429,7 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Handle user login with credential validation."""
     error = None
 
     if request.method == 'POST':
@@ -441,6 +453,7 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """Clear user session and redirect to login page."""
     session.clear()
     return redirect(url_for('login'))
 
@@ -448,6 +461,7 @@ def logout():
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
+    """Display movie suggestions based on user preferences."""
     if request.method == 'POST':
         user_name = request.form.get('name', session.get('display_name', 'Guest')).strip() or 'Guest'
         user_gender = request.form.get('gender', 'Prefer not to say').strip() or 'Prefer not to say'
@@ -474,7 +488,9 @@ def index():
             )
         else:
             category_message = (
-                f"Movies in {user_category}:" if filtered_movies else f"No movies found in category: {user_category}"
+                f"Movies in {user_category}:"
+                if filtered_movies
+                else f"No movies found in category: {user_category}"
             )
 
         return render_template(
@@ -500,6 +516,7 @@ def index():
 @app.route('/submit-feedback', methods=['POST'])
 @login_required
 def submit_feedback():
+    """Process and save user feedback submission."""
     user_name = request.form.get('name', session.get('display_name', 'Guest')).strip() or 'Guest'
     user_gender = request.form.get('gender', 'Prefer not to say').strip() or 'Prefer not to say'
     user_age_str = request.form.get('age', '0').strip()
@@ -547,6 +564,7 @@ def submit_feedback():
 @app.route('/movie/<slug>')
 @login_required
 def movie_detail(slug):
+    """Display detailed information about a specific movie."""
     title = title_from_slug(slug)
     if title is None:
         return redirect(url_for('index'))
