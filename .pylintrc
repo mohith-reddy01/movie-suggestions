@@ -1,0 +1,20 @@
+[MASTER]
+disable=
+    missing-module-docstring,
+    missing-function-docstring,
+    line-too-long,
+    broad-exception-caught,
+    too-many-arguments,
+    too-many-positional-arguments,
+    import-error,
+    invalid-name,
+    consider-using-with,
+    duplicate-code,
+    missing-class-docstring,
+
+[FORMAT]
+max-line-length=120
+
+[DESIGN]
+max-args=6
+max-positional-arguments=6
