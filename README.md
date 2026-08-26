@@ -1,55 +1,128 @@
-# movie-suggestions
+# Movie Suggestions & Recommendation Platform
 
-Flask Movie Project - Email & Database Setup
+A dynamic full-stack web application built with Python and Flask that delivers personalized movie recommendations based on user preferences and age ratings. The app features secure user authentication, persistent SQLite database storage, dynamic movie detail pages, feedback submission, and automated SMTP email notifications.
 
-Live app: https://movie-suggestion2-production.up.railway.app/
+---
 
-This project uses SQLite for user and feedback storage and can email new registrations and feedback to an admin address using SMTP.
+## 🔗 Project Links
 
-Required environment variables (set these in your OS or a .env file):
+- **Live Application:** [https://movie-suggestion2-production.up.railway.app/](https://movie-suggestion2-production.up.railway.app/)
+- **GitHub Repository:** [https://github.com/mohith-reddy01/movie-suggestions.git](https://github.com/mohith-reddy01/movie-suggestions.git)
 
-- SMTP_SERVER: SMTP server hostname (e.g. smtp.gmail.com)
-- SMTP_PORT: SMTP port (usually 587)
-- SMTP_USERNAME: SMTP auth username (email address)
-- SMTP_PASSWORD: SMTP auth password or app password
-- ADMIN_EMAIL: Recipient address for admin notifications
-- EMAIL_FROM: Optional `From` address (defaults to SMTP_USERNAME)
-- SECRET_KEY: Flask session secret (optional)
+---
 
-Quick test (PowerShell):
+## ✨ Features
 
-$env:SMTP_SERVER = "smtp.example.com"
-$env:SMTP_PORT = "587"
-$env:SMTP_USERNAME = "you@example.com"
-$env:SMTP_PASSWORD = "yourpassword"
-$env:ADMIN_EMAIL = "admin@example.com"
-$env:SECRET_KEY = "change-this-secret"
+- 🔐 **User Authentication**: Secure user registration, password hashing (Werkzeug), session management, and login protection for member areas.
+- 🎬 **Dynamic Movie Suggestions**: Explore curated recommendations across genres (Thriller, Comedy, Action, Romance, Sci-Fi, Drama, Animation).
+- 🔞 **Age Rating Filtering**: Automatic content filtering ensuring age-appropriate recommendations based on user age input.
+- 📄 **Movie Detail Pages**: Dedicated detail views with IMDb ratings, OTT streaming provider details, rental pricing, and synopsis.
+- 💬 **User Feedback System**: Store user feedback submissions directly into the SQLite database.
+- 📧 **SMTP Email Notifications**: Automated emails dispatched to admin on new user registrations and feedback submissions.
+- 🚀 **Cloud Deployment**: Production-ready deployment configuration on Railway with Gunicorn.
 
-python app.py
+---
 
-Then register a new user or submit feedback while logged in; the app will attempt to email the details to `ADMIN_EMAIL`.
+## 🛠️ Tech Stack
 
-Notes:
-- For Gmail, you may need an App Password and to enable "Less secure app access" alternatives.
-- Email failures are printed to stdout but do not block the user flow.
+- **Backend**: Python 3, Flask, Werkzeug Security
+- **Database**: SQLite3
+- **Frontend**: HTML5, CSS3 (Modern Dark Cinematic UI), Jinja2 Templates
+- **Production Server**: Gunicorn
+- **Deployment**: Railway
 
-Gmail-specific setup
---------------------
+---
 
-If you want to send email using Gmail, follow these steps:
+## 🚀 Getting Started Locally
 
-1. Enable 2-Step Verification for your Google account.
-2. Create an App Password for "Mail" and the device you choose. Google will give you a 16-character app password — copy it.
-3. Set the environment variables using your Gmail address as `SMTP_USERNAME` and the app password as `SMTP_PASSWORD`. Example (PowerShell):
+### 1. Clone the Repository
 
+```bash
+git clone https://github.com/mohith-reddy01/movie-suggestions.git
+cd movie-suggestions
+```
+
+### 2. Set Up a Virtual Environment
+
+```bash
+# Windows
+python -m venv .venv
+.venv\Scripts\activate
+
+# macOS / Linux
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure Environment Variables (Optional)
+
+Configure SMTP credentials if you wish to receive registration and feedback email notifications:
+
+#### PowerShell:
 ```powershell
 $env:SMTP_SERVER = "smtp.gmail.com"
 $env:SMTP_PORT = "587"
-$env:SMTP_USERNAME = "venkatamohithreddy1@gmail.com"
-$env:SMTP_PASSWORD = "<your-app-password-here>"
-$env:ADMIN_EMAIL = "venkatamohithreddy1@gmail.com"
-$env:SECRET_KEY = "change-this-secret"
+$env:SMTP_USERNAME = "your-email@gmail.com"
+$env:SMTP_PASSWORD = "your-16-char-app-password"
+$env:ADMIN_EMAIL = "your-email@gmail.com"
+$env:SECRET_KEY = "your-secret-key"
 ```
 
-- Use `EMAIL_FROM` if you need a different From address. Do not commit the app password to source control.
-- If you don't want to use Gmail, any SMTP provider that supports STARTTLS will work with the same env vars.
+#### Bash (Linux/macOS):
+```bash
+export SMTP_SERVER="smtp.gmail.com"
+export SMTP_PORT="587"
+export SMTP_USERNAME="your-email@gmail.com"
+export SMTP_PASSWORD="your-16-char-app-password"
+export ADMIN_EMAIL="your-email@gmail.com"
+export SECRET_KEY="your-secret-key"
+```
+
+### 5. Run the Application
+
+```bash
+python app.py
+```
+
+Open your browser and navigate to `http://127.0.0.1:5000/`.
+
+---
+
+## 📁 Project Structure
+
+```text
+movie-suggestions/
+├── .github/
+│   └── workflows/
+│       └── pylint.yml          # GitHub Actions CI linting workflow
+├── static/
+│   ├── images/                 # SVG posters and visual assets
+│   └── style.css               # Dark theme styles and responsive layout
+├── templates/
+│   ├── base.html               # Base Jinja2 layout with navigation
+│   ├── index.html              # Main dashboard with movie recommendations
+│   ├── login.html              # User login form
+│   ├── register.html           # User registration form
+│   ├── movie.html              # Individual movie detail view
+│   ├── result.html             # Filtered recommendation results
+│   └── thanks.html             # Feedback confirmation page
+├── .gitignore                  # Git ignore rules
+├── .pylintrc                   # Pylint configuration
+├── app.py                      # Core Flask application and database logic
+├── index.html                  # GitHub Pages redirect entry point
+├── requirements.txt            # Python dependencies
+├── run_ngrok.py                # Optional ngrok tunneling utility
+└── README.md                   # Documentation
+```
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
