@@ -1,3 +1,5 @@
+# movie-suggestions
+
 Flask Movie Project - Email & Database Setup
 
 Live app: https://movie-suggestion2-production.up.railway.app/
