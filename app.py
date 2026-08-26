@@ -250,7 +250,7 @@ def slugify(title: str) -> str:
 
 def title_from_slug(slug: str) -> str | None:
     """Convert URL slug back to original movie title."""
-    for t in movie_posters.keys():
+    for t in movie_posters:
         if slugify(t) == slug:
             return t
     return None
@@ -352,7 +352,7 @@ def send_email(subject: str, body: str, to_address: str | None = None) -> bool:
             server.login(smtp_user, smtp_pass)
             server.send_message(msg)
         return True
-    except Exception as e:
+    except (smtplib.SMTPException, OSError) as e:
         print('Failed to send email:', e)
         return False
 
@@ -372,12 +372,23 @@ def login_required(view):
 init_db()
 
 
-def save_feedback(user_name, user_gender, user_age, category, continue_choice, feedback_text):
-    """Save user feedback to the database."""
+def save_feedback(feedback_data):
+    """Save user feedback to the database.
+
+    Args:
+        feedback_data: Dictionary containing the feedback fields.
+    """
     with get_db_connection() as conn:
         conn.execute(
             'INSERT INTO feedback (user_name, user_gender, user_age, category, continue_choice, feedback) VALUES (?, ?, ?, ?, ?, ?)',
-            (user_name, user_gender, user_age, category, continue_choice, feedback_text),
+            (
+                feedback_data['user_name'],
+                feedback_data['user_gender'],
+                feedback_data['user_age'],
+                feedback_data['category'],
+                feedback_data['continue_choice'],
+                feedback_data['feedback_text'],
+            ),
         )
         conn.commit()
 
@@ -415,7 +426,7 @@ def register():
                 subject = f'New user registered: {username}'
                 body = f'Username: {username}\nDisplay name: {display_name}\n'
                 send_email(subject, body)
-            except Exception:
+            except (smtplib.SMTPException, OSError):
                 pass
             user = get_user_by_username(username)
             session.clear()
@@ -484,7 +495,9 @@ def index():
 
         if user_age < 18:
             category_message = (
-                f"Movies in {user_category} suitable for under 18:" if filtered_movies else f"No movies available in {user_category} for your age."
+                f"Movies in {user_category} suitable for under 18:"
+                if filtered_movies
+                else f"No movies available in {user_category} for your age."
             )
         else:
             category_message = (
@@ -534,18 +547,26 @@ def submit_feedback():
     # persist feedback to the database
     if user_feedback:
         try:
-            save_feedback(user_name, user_gender, user_age, user_category, continue_choice, user_feedback)
+            save_feedback({
+                'user_name': user_name,
+                'user_gender': user_gender,
+                'user_age': user_age,
+                'category': user_category,
+                'continue_choice': continue_choice,
+                'feedback_text': user_feedback,
+            })
             # email feedback details to admin
             try:
                 subject = f'Feedback from {user_name} ({user_category})'
                 body = (
                     f'Name: {user_name}\nGender: {user_gender}\nAge: {user_age}\n'
-                    f'Category: {user_category}\nContinue: {continue_choice}\n\nFeedback:\n{user_feedback}'
+                    f'Category: {user_category}\nContinue: {continue_choice}\n'
+                    f'Feedback:\n{user_feedback}'
                 )
                 send_email(subject, body)
-            except Exception:
+            except (smtplib.SMTPException, OSError):
                 pass
-        except Exception:
+        except sqlite3.DatabaseError:
             # ignore DB errors for now but continue to thanks page
             pass
 

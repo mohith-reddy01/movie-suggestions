@@ -6,11 +6,10 @@ import time
 from pyngrok import ngrok
 
 PYTHON_EXECUTABLE = sys.executable
-subprocess.Popen([PYTHON_EXECUTABLE, 'app.py'], cwd=os.getcwd())
+with subprocess.Popen([PYTHON_EXECUTABLE, 'app.py'], cwd=os.getcwd()) as process:
+	tunnel = ngrok.connect(5000)
+	print(tunnel.public_url)
+	sys.stdout.flush()
 
-tunnel = ngrok.connect(5000)
-print(tunnel.public_url)
-sys.stdout.flush()
-
-# Keep the process alive so the tunnel stays open.
-time.sleep(3600)
+	# Keep the process alive so the tunnel stays open.
+	time.sleep(3600)
